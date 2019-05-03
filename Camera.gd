@@ -9,7 +9,7 @@ var target_node
 func _ready():
 	target_node = get_node(target)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var target_position = target_node.global_transform.origin
 	
 	var offset = global_transform.origin - target_position

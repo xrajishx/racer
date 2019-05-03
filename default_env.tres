@@ -1,10 +1,8 @@
-[gd_resource type="Environment" load_steps=3 format=2]
+[gd_resource type="Environment" load_steps=2 format=2]
 
-[ext_resource path="res://assets/kloofendal_48d_partly_cloudy_1k.hdr" type="Texture" id=1]
-
-[sub_resource type="PanoramaSky" id=1]
-radiance_size = 0
-panorama = ExtResource( 1 )
+[sub_resource type="ProceduralSky" id=1]
+ground_bottom_color = Color( 0.12549, 0.509804, 0.917647, 1 )
+ground_horizon_color = Color( 0.2, 0.431373, 0.929412, 1 )
 
 [resource]
 background_mode = 2
