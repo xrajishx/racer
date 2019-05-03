@@ -3,6 +3,7 @@
 [ext_resource path="res://assets/kloofendal_48d_partly_cloudy_1k.hdr" type="Texture" id=1]
 
 [sub_resource type="PanoramaSky" id=1]
+radiance_size = 0
 panorama = ExtResource( 1 )
 
 [resource]

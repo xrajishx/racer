@@ -4,7 +4,7 @@ export var MAX_ENGINE_FORCE = 200.0
 export var MAX_BRAKE = 10.0
 export var MAX_STEER = 0.5
 
-func _physics_process(_delta):
+func _physics_process(_delta):	
 	var engine_input = 0.0
 	var brake_input = 0.0
 	var steer_input = 0.0
