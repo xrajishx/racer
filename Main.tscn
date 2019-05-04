@@ -10,8 +10,8 @@ script = ExtResource( 1 )
 car_spawn_height = 30.0
 
 [node name="GroundGenerator" parent="." instance=ExtResource( 2 )]
-map_length = 100
-quad_size = 5.0
+height_influence = 40
+map_length = 200
 
 [node name="Camera" type="Camera" parent="."]
 current = true
