@@ -1,6 +1,5 @@
 extends Spatial
 
-export var color = Color(0.1, 0.7, 0.1)
 export var height_influence = 10
 export var map_length = 200
 export var quad_size = 4.0
@@ -8,7 +7,6 @@ export var smooth_shading = false
 
 var vertices = PoolVector3Array()
 var indeces = []
-var material = SpatialMaterial.new()
 
 func _ready():
 	randomize()
@@ -62,9 +60,6 @@ func _ready():
 			indeces.push_back(current_number_of_vertices + 2)
 			indeces.push_back(current_number_of_vertices + 1)
 			indeces.push_back(current_number_of_vertices)
-
-	material.albedo_color = color
-	surface_tool.set_material(material)
 
 	surface_tool.add_smooth_group(smooth_shading)
 

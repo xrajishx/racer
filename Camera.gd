@@ -17,6 +17,6 @@ func _physics_process(_delta):
 	offset.y = height
 	
 	var new_position = target_position + offset
-	target_position.y = target_position.y + 1
+	target_position.y = target_position.y + 2
 	
 	look_at_from_position(new_position, target_position, Vector3(0, 1, 0))
