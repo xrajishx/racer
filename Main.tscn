@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://GroundGenerator.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Car.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Camera.gd" type="Script" id=4]
+[ext_resource path="res://Camera.gd" type="Script" id=3]
+[ext_resource path="res://RaceCar.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
@@ -13,13 +13,10 @@ car_spawn_height = 30.0
 map_length = 100
 quad_size = 5.0
 
-[node name="Car" parent="." instance=ExtResource( 3 )]
-engine_force = 100.0
-
 [node name="Camera" type="Camera" parent="."]
 current = true
-script = ExtResource( 4 )
-target = NodePath("../../Game/Car")
+script = ExtResource( 3 )
+target = NodePath("../RaceCar")
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.925266, 0.37932, 0, -0.37932, 0.925266, 0, 8.54686, 19.5642 )
@@ -27,3 +24,5 @@ light_energy = 0.5
 light_indirect_energy = 0.0
 light_bake_mode = 0
 shadow_enabled = true
+
+[node name="RaceCar" parent="." instance=ExtResource( 4 )]
