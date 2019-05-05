@@ -1,27 +1,23 @@
 extends Spatial
 
-var rng
-var checkpoint_marker_resource = load("res://CheckpointMarker.tscn")
-
-export var height_influence = 10
 export var map_length = 200
 export var quad_size = 4.0
+export var height_influence = 10
 export var smooth_shading = false
-
-export var noise_octaves = 2
-export var noise_period = 20.0
-export var noise_persistence = 0.8
 
 var noise_image
 
 var vertices = PoolVector3Array()
+var vertices_dictionary = {}
+
 var indeces = []
 
 func _ready():
-	rng = RandomNumberGenerator.new()
-	rng.seed = global._seed
+	global.current_map_length = map_length
+	global.current_quad_size = quad_size
+	global.current_height_influence = height_influence
 
-	noise_image = get_noise_image()
+	noise_image = global.generate_noise_image(map_length)
 
 	var result_mesh = Mesh.new();
 	var surface_tool = SurfaceTool.new();
@@ -41,41 +37,6 @@ func _ready():
 	$Ground.mesh = result_mesh
 
 	$Ground.create_trimesh_collision()
-	
-	var checkpoint_positions = get_checkpoint_positions(10)
-	spawn_checkpoint_markers(checkpoint_positions)
-
-func get_noise_image():
-	var noise = OpenSimplexNoise.new()
-
-	noise.seed = rng.randi()
-	noise.octaves = noise_octaves
-	noise.period = noise_period
-	noise.persistence = noise_persistence
-
-	var noise_image = noise.get_image(map_length + 1, map_length + 1)
-	noise_image.lock()
-	
-	return noise_image
-
-func get_checkpoint_positions(number_of_checkpoints):
-	var checkpoint_positions = []
-	var padding = 20
-	for i in range(0, number_of_checkpoints):
-		var randomX = (rng.randi() % ((map_length) - (padding * 2))) + padding
-		var randomZ = (rng.randi() % ((map_length) - (padding * 2))) + padding
-		var randomY = noise_image.get_pixel(randomX, randomZ).r * height_influence
-		
-		var checkpoint_position = Vector3(randomX * quad_size, randomY, randomZ * quad_size)
-		checkpoint_positions.push_back(checkpoint_position)
-	
-	return checkpoint_positions
-
-func spawn_checkpoint_markers(checkpoint_positions):
-	for i in checkpoint_positions.size():
-		var checkpoint_marker = checkpoint_marker_resource.instance()
-		add_child(checkpoint_marker)
-		checkpoint_marker.global_transform.origin = checkpoint_positions[i]
 
 func generate_mesh_data():
 	for i in range(0, map_length):
@@ -100,16 +61,23 @@ func generate_mesh_data():
 				height_influence * noise_image.get_pixel(i + 1, j).r,
 				j * quad_size
 			)
+			
+			var point_one_index = _add_or_get_vertex_index(point_one)
+			var point_two_index = _add_or_get_vertex_index(point_two)
+			var point_three_index = _add_or_get_vertex_index(point_three)
+			var point_four_index = _add_or_get_vertex_index(point_four)
 
-			var current_number_of_vertices = vertices.size()
-			vertices.push_back(point_one)
-			vertices.push_back(point_two)
-			vertices.push_back(point_three)
-			vertices.push_back(point_four)
+			indeces.push_back(point_one_index)
+			indeces.push_back(point_four_index)
+			indeces.push_back(point_three_index)
+			indeces.push_back(point_three_index)
+			indeces.push_back(point_two_index)
+			indeces.push_back(point_one_index)
 
-			indeces.push_back(current_number_of_vertices)
-			indeces.push_back(current_number_of_vertices + 3)
-			indeces.push_back(current_number_of_vertices + 2)
-			indeces.push_back(current_number_of_vertices + 2)
-			indeces.push_back(current_number_of_vertices + 1)
-			indeces.push_back(current_number_of_vertices)
+func _add_or_get_vertex_index(vertex):
+	if vertices_dictionary.has(vertex):
+		return vertices_dictionary[vertex]
+	else:
+		vertices.push_back(vertex)
+		vertices_dictionary[vertex] = vertices.size() - 1
+		return vertices.size() - 1

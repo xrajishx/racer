@@ -7,13 +7,10 @@
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
-car_spawn_height = 30.0
 
 [node name="GroundGenerator" parent="." instance=ExtResource( 2 )]
-height_influence = 4
 map_length = 100
-quad_size = 2.0
-smooth_shading = true
+height_influence = 20
 
 [node name="RaceCar" parent="." instance=ExtResource( 3 )]
 
@@ -30,15 +27,39 @@ light_indirect_energy = 0.0
 light_bake_mode = 0
 shadow_enabled = true
 
-[node name="Control" type="Control" parent="."]
+[node name="GameOver" type="Control" parent="."]
+editor/display_folded = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Label" type="Label" parent="Control"]
+[node name="YouWin" type="Label" parent="GameOver"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "You win"
 align = 1
 valign = 1
+
+[node name="PlayAgain" type="Button" parent="GameOver"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -60.0
+text = "Play again"
+
+[node name="HUD" type="Control" parent="."]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Checkpoints" type="Label" parent="HUD"]
+anchor_right = 1.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Checkpoints: "
+align = 1
+valign = 1
 [connection signal="collided_with_checkpoint_marker" from="RaceCar" to="." method="_on_RaceCar_collided_with_checkpoint_marker"]
+[connection signal="pressed" from="GameOver/PlayAgain" to="." method="_on_PlayAgain_pressed"]

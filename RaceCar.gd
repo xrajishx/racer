@@ -6,7 +6,15 @@ export var MAX_ENGINE_FORCE = 200.0
 export var MAX_BRAKE = 10.0
 export var MAX_STEER = 0.5
 
-func _physics_process(_delta):	
+func _ready():
+	$AudioStreamPlayer.volume_db = global.default_car_audio_volume
+	$AudioStreamPlayer.pitch_scale = global.default_car_audio_pitch_scale
+
+func _physics_process(_delta):
+	if !$AudioStreamPlayer.playing and linear_velocity.length() * _delta >= 0.0:
+		$AudioStreamPlayer.play()
+
+	$AudioStreamPlayer.pitch_scale = clamp(linear_velocity.length() * _delta / 2, 0.01, 0.6)
 	var engine_input = 0.0
 	var brake_input = 0.0
 	var steer_input = 0.0
