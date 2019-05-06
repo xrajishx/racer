@@ -176,4 +176,3 @@ shape = SubResource( 6 )
 stream = ExtResource( 4 )
 volume_db = -30.0
 pitch_scale = 0.2
-[connection signal="body_shape_entered" from="." to="." method="_on_RaceCar_body_shape_entered"]

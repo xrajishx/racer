@@ -61,5 +61,4 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Checkpoints: "
 align = 1
 valign = 1
-[connection signal="collided_with_checkpoint_marker" from="RaceCar" to="." method="_on_RaceCar_collided_with_checkpoint_marker"]
 [connection signal="pressed" from="GameOver/PlayAgain" to="." method="_on_PlayAgain_pressed"]
