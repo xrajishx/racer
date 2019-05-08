@@ -32,7 +32,7 @@ func generate_noise_image(size):
 	noise.period = noise_period
 	noise.persistence = noise_persistence
 
-	var noise_image = noise.get_image(size + 1, size + 1)
+	var noise_image = noise.get_seamless_image(size + 1)
 	noise_image.lock()
 	
 	current_noise_image = noise_image

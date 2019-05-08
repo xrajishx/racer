@@ -23,6 +23,10 @@ config/icon="res://icon.png"
 
 global="*res://global.gd"
 
+[display]
+
+window/size/resizable=false
+
 [input]
 
 car_forward={
