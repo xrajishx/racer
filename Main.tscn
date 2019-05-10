@@ -78,4 +78,17 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "1000"
 align = 1
 valign = 1
+
+[node name="Speed" type="Label" parent="HUD"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "20"
+align = 1
+valign = 1
+[connection signal="respawn" from="RaceCar" to="." method="_on_RaceCar_respawn"]
 [connection signal="pressed" from="GameOver/PlayAgain" to="." method="_on_PlayAgain_pressed"]

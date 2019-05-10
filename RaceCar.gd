@@ -1,5 +1,7 @@
 extends VehicleBody
 
+signal respawn
+
 export var MAX_ENGINE_FORCE = 200.0
 export var MAX_BRAKE = 10.0
 export var MAX_STEER = 0.5
@@ -9,6 +11,10 @@ export var STEER_SPEED = 5.0
 func _ready():
 	$AudioStreamPlayer.volume_db = global.default_car_audio_volume
 	$AudioStreamPlayer.pitch_scale = global.default_car_audio_pitch_scale
+
+func _input(event):
+	if event.is_action_pressed("car_respawn"):
+		emit_signal("respawn")
 
 func _physics_process(delta):
 	if !$AudioStreamPlayer.playing and linear_velocity.length() * delta >= 0.0:

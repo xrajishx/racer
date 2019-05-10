@@ -8,6 +8,8 @@ var third_tree_resource = load("res://assets/trees/Tree3.tscn")
 var fourth_tree_resource = load("res://assets/trees/Tree4.tscn")
 #var fifth_tree_resource = load("res://assets/trees/Tree5.tscn")
 
+var respawn_position
+
 var checkpoints_count = 10
 var checkpoints_completed = 0
 var checkpoints = []
@@ -60,7 +62,8 @@ func _ready():
 func _spawn_car():
 	var spawn_distance_from_origin = (global.current_map_length / 2) * global.current_quad_size
 	var height = global.get_height_at_position(spawn_distance_from_origin, spawn_distance_from_origin)
-	$RaceCar.global_transform.origin = Vector3(spawn_distance_from_origin, height + 1, spawn_distance_from_origin)
+	respawn_position = Vector3(spawn_distance_from_origin, height + 1, spawn_distance_from_origin)
+	$RaceCar.global_transform.origin = respawn_position
 
 func _spawn_checkpoint_markers():
 	print(checkpoint_marker_resource)
@@ -78,6 +81,7 @@ func _spawn_trees(positions, resource):
 		tree.global_transform.origin = positions[i]
 
 func checkpoint_reached():
+	respawn_position = checkpoint_positions[checkpoints_completed]
 	checkpoints_completed += 1
 	if checkpoints_completed >= checkpoints_count:
 		$GameOver.visible = true
@@ -94,7 +98,7 @@ func update_hud_text():
 	$HUD/Checkpoints.text = "Checkpoints : " + str(checkpoints_completed) + "/" + str(checkpoints_count)
 
 func _on_PlayAgain_pressed():
-	global.load_scene("res://Menu.tscn")
+	global.load_scene("res://Loading.tscn")
 
 func _process(_delta):
 	var waypoint_marker_position = $Camera.unproject_position(Vector3(
@@ -113,3 +117,8 @@ func _process(_delta):
 
 	$HUD/Waypoint.position = waypoint_marker_position
 	$HUD/Waypoint/Label.text = str((floor($RaceCar.translation.distance_to(next_checkpoint_position)) - 5) / 10)
+	$HUD/Speed.text = str((floor($RaceCar.linear_velocity.length())))
+
+func _on_RaceCar_respawn():
+	$RaceCar.linear_velocity = Vector3.ZERO
+	$RaceCar.global_transform.origin = respawn_position
