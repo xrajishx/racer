@@ -1,6 +1,6 @@
 extends Node
 
-var checkpoint_marker_resource = load("res://CheckpointMarker.tscn")
+var checkpoint_marker_resource = load("res://scenes/CheckpointMarker.tscn")
 
 var first_tree_resource = load("res://assets/trees/Tree1.tscn")
 var second_tree_resource = load("res://assets/trees/Tree2.tscn")
@@ -98,7 +98,7 @@ func update_hud_text():
 	$HUD/Checkpoints.text = "Checkpoints : " + str(checkpoints_completed) + "/" + str(checkpoints_count)
 
 func _on_PlayAgain_pressed():
-	global.load_scene("res://Loading.tscn")
+	global.load_scene("res://scenes/Loading.tscn")
 
 func _process(_delta):
 	var waypoint_marker_position = $Camera.unproject_position(Vector3(

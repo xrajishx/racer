@@ -11,6 +11,7 @@ export var STEER_SPEED = 5.0
 func _ready():
 	$AudioStreamPlayer.volume_db = global.default_car_audio_volume
 	$AudioStreamPlayer.pitch_scale = global.default_car_audio_pitch_scale
+	
 
 func _input(event):
 	if event.is_action_pressed("car_respawn"):
