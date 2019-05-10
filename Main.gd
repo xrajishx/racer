@@ -2,10 +2,28 @@ extends Node
 
 var checkpoint_marker_resource = load("res://CheckpointMarker.tscn")
 
+var first_tree_resource = load("res://assets/trees/Tree1.tscn")
+var second_tree_resource = load("res://assets/trees/Tree2.tscn")
+var third_tree_resource = load("res://assets/trees/Tree3.tscn")
+var fourth_tree_resource = load("res://assets/trees/Tree4.tscn")
+#var fifth_tree_resource = load("res://assets/trees/Tree5.tscn")
+
 var checkpoints_count = 10
 var checkpoints_completed = 0
 var checkpoints = []
 var checkpoint_positions
+
+var first_trees_count = 50
+var first_tree_positions
+
+var second_trees_count = 50
+var second_tree_positions
+
+var third_trees_count = 50
+var third_tree_positions
+
+var fourth_trees_count = 50
+var fourth_tree_positions
 
 var next_checkpoint_position
 
@@ -17,8 +35,21 @@ var waypoint_marker_pos_max
 func _ready():
 	_spawn_car()
 	checkpoint_positions = global.generate_checkpoint_positions(checkpoints_count)
+
+	# Generate tree positions
+	first_tree_positions = global.generate_tree_positions(first_trees_count)
+	second_tree_positions = global.generate_tree_positions(second_trees_count)
+	third_tree_positions = global.generate_tree_positions(third_trees_count)
+	fourth_tree_positions = global.generate_tree_positions(fourth_trees_count)
+
 	next_checkpoint_position = checkpoint_positions[0]
 	_spawn_checkpoint_markers()
+
+	_spawn_trees(first_tree_positions, first_tree_resource)
+	_spawn_trees(second_tree_positions, second_tree_resource)
+	_spawn_trees(third_tree_positions, third_tree_resource)
+	_spawn_trees(fourth_tree_positions, fourth_tree_resource)
+
 	update_hud_text()
 	waypoint_marker_size = $HUD/Waypoint.get_rect().size
 	viewport_size = get_viewport().size
@@ -32,12 +63,19 @@ func _spawn_car():
 	$RaceCar.global_transform.origin = Vector3(spawn_distance_from_origin, height + 1, spawn_distance_from_origin)
 
 func _spawn_checkpoint_markers():
+	print(checkpoint_marker_resource)
 	for i in checkpoint_positions.size():
 		var checkpoint_marker = checkpoint_marker_resource.instance()
 		checkpoints.push_back(checkpoint_marker)
 		add_child(checkpoint_marker)
 		checkpoint_marker.global_transform.origin = checkpoint_positions[i]
 	checkpoints[0].activate()
+
+func _spawn_trees(positions, resource):
+	for i in positions.size():
+		var tree = resource.instance()
+		add_child(tree)
+		tree.global_transform.origin = positions[i]
 
 func checkpoint_reached():
 	checkpoints_completed += 1

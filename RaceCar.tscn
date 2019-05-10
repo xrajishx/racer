@@ -85,7 +85,7 @@ surfaces/0 = {
 }
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 1, 0.4, 2 )
+extents = Vector3( 1, 0.4, 2.5 )
 
 [node name="RaceCar" type="VehicleBody"]
 mass = 58.6735
@@ -169,7 +169,7 @@ mesh = SubResource( 5 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.571139 )
 shape = SubResource( 6 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
