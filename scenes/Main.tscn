@@ -10,7 +10,7 @@
 script = ExtResource( 1 )
 
 [node name="GroundGenerator" parent="." instance=ExtResource( 2 )]
-map_length = 200
+map_length = 110
 height_influence = 20
 
 [node name="RaceCar" parent="." instance=ExtResource( 3 )]
@@ -50,6 +50,7 @@ margin_top = -60.0
 text = "Play again"
 
 [node name="HUD" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

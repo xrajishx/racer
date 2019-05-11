@@ -15,16 +15,16 @@ var checkpoints_completed = 0
 var checkpoints = []
 var checkpoint_positions
 
-var first_trees_count = 50
+var first_trees_count = 100
 var first_tree_positions
 
-var second_trees_count = 50
+var second_trees_count = 100
 var second_tree_positions
 
-var third_trees_count = 50
+var third_trees_count = 100
 var third_tree_positions
 
-var fourth_trees_count = 50
+var fourth_trees_count = 100
 var fourth_tree_positions
 
 var next_checkpoint_position

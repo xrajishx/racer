@@ -1,7 +1,7 @@
 extends Camera
 
-var distance = 6.0
-var height = 3.0
+var distance = 3.5
+var height = 1.5
 
 export (NodePath) var target = null
 var target_node

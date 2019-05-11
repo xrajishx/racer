@@ -2,16 +2,25 @@ extends VehicleBody
 
 signal respawn
 
-export var MAX_ENGINE_FORCE = 200.0
+export var MAX_ENGINE_FORCE = 100.0
 export var MAX_BRAKE = 10.0
-export var MAX_STEER = 0.5
+export var MAX_STEER = 0.3
 
-export var STEER_SPEED = 5.0
+export var STEER_SPEED = 3.0
+
+var material = load("res://assets/outline.material")
+
+func _enter_tree():
+	var outline_mesh = $CarBodyMesh.mesh.create_outline(0.05)
+	var outline_mesh_instance = MeshInstance.new()
+	outline_mesh_instance.set_mesh(outline_mesh)
+	outline_mesh_instance.set_surface_material(0, material)
+	outline_mesh_instance.transform = $CarBodyMesh.transform
+	add_child(outline_mesh_instance)
 
 func _ready():
 	$AudioStreamPlayer.volume_db = global.default_car_audio_volume
 	$AudioStreamPlayer.pitch_scale = global.default_car_audio_pitch_scale
-	
 
 func _input(event):
 	if event.is_action_pressed("car_respawn"):

@@ -6,6 +6,7 @@ export var height_influence = 10
 export var smooth_shading = false
 
 var ground_material = load("res://assets/green_ground.material")
+var outline_material = load("res://assets/outline.material")
 
 var noise_image
 
@@ -40,10 +41,15 @@ func _ready():
 
 func _add_mesh_instance_child(mesh_data):
 	var mesh_instance = MeshInstance.new()
+	var outline_mesh_instance = MeshInstance.new()
 	mesh_instance.set_mesh(mesh_data)
 	mesh_instance.create_trimesh_collision()
 	mesh_instance.set_surface_material(0, ground_material)
+	
+	outline_mesh_instance.set_mesh(mesh_data.create_outline(0.1))
+	outline_mesh_instance.set_surface_material(0, outline_material)
 	add_child(mesh_instance)
+	add_child(outline_mesh_instance)
 
 func generate_mesh_data():
 	for i in range(0, map_length):

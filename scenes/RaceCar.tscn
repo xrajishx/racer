@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/car_wheel.material" type="Material" id=3]
 [ext_resource path="res://assets/car_sound.wav" type="AudioStream" id=4]
 
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube.001"
 surfaces/0 = {
@@ -86,7 +85,7 @@ surfaces/0 = {
 }
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 1, 0.4, 2.5 )
+extents = Vector3( 0.5, 0.2, 1.2 )
 
 [node name="RaceCar" type="VehicleBody"]
 mass = 58.6735
@@ -94,18 +93,17 @@ contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 1 )
 
-[node name="car-body" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.126528, -0.14155 )
+[node name="CarBodyMesh" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.2, 0.02 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="front-left" type="VehicleWheel" parent="."]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07536, 0.299611, 1.19691 )
+[node name="FrontLeftWheel" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.28, 0.69 )
 use_as_traction = true
 use_as_steering = true
 wheel_roll_influence = 1.0
-wheel_radius = 0.36
+wheel_radius = 0.18
 wheel_friction_slip = 5.0
 suspension_travel = 1.0
 suspension_stiffness = 50.0
@@ -113,17 +111,17 @@ suspension_max_force = 7e+008
 damping_compression = 0.7
 damping_relaxation = 0.8
 
-[node name="front-left" type="MeshInstance" parent="front-left"]
+[node name="FrontLeftWheelMesh" type="MeshInstance" parent="FrontLeftWheel"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="front-right" type="VehicleWheel" parent="."]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06915, 0.299611, 1.19691 )
+[node name="FrontRightWheel" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.28, 0.69 )
 use_as_traction = true
 use_as_steering = true
 wheel_roll_influence = 1.0
-wheel_radius = 0.36
+wheel_radius = 0.18
 wheel_friction_slip = 5.0
 suspension_travel = 1.0
 suspension_stiffness = 50.0
@@ -131,16 +129,16 @@ suspension_max_force = 7e+008
 damping_compression = 0.7
 damping_relaxation = 0.8
 
-[node name="front-right" type="MeshInstance" parent="front-right"]
+[node name="FrontRightWheelMesh" type="MeshInstance" parent="FrontRightWheel"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 mesh = SubResource( 3 )
 material/0 = null
 
-[node name="rear-left" type="VehicleWheel" parent="."]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07536, 0.299611, -1.73585 )
+[node name="RearLeftWheel" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.28, -0.77 )
 use_as_traction = true
 wheel_roll_influence = 1.0
-wheel_radius = 0.36
+wheel_radius = 0.18
 wheel_friction_slip = 5.0
 suspension_travel = 1.0
 suspension_stiffness = 50.0
@@ -148,16 +146,16 @@ suspension_max_force = 7e+008
 damping_compression = 0.7
 damping_relaxation = 0.8
 
-[node name="rear-left" type="MeshInstance" parent="rear-left"]
+[node name="RearLeftWheelMesh" type="MeshInstance" parent="RearLeftWheel"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="rear-right" type="VehicleWheel" parent="."]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06915, 0.299611, -1.73585 )
+[node name="RearRightWheel" type="VehicleWheel" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.28, -0.77 )
 use_as_traction = true
 wheel_roll_influence = 1.0
-wheel_radius = 0.36
+wheel_radius = 0.18
 wheel_friction_slip = 5.0
 suspension_travel = 1.0
 suspension_stiffness = 50.0
@@ -165,12 +163,13 @@ suspension_max_force = 7e+008
 damping_compression = 0.7
 damping_relaxation = 0.8
 
-[node name="rear-right" type="MeshInstance" parent="rear-right"]
+[node name="RearRightWheelMesh" type="MeshInstance" parent="RearRightWheel"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 mesh = SubResource( 5 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -0.571139 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40937, -0.126293 )
 shape = SubResource( 6 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
