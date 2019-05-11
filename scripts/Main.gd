@@ -2,11 +2,11 @@ extends Node
 
 var checkpoint_marker_resource = load("res://scenes/CheckpointMarker.tscn")
 
-var first_tree_resource = load("res://assets/trees/Tree1.tscn")
-var second_tree_resource = load("res://assets/trees/Tree2.tscn")
-var third_tree_resource = load("res://assets/trees/Tree3.tscn")
-var fourth_tree_resource = load("res://assets/trees/Tree4.tscn")
-#var fifth_tree_resource = load("res://assets/trees/Tree5.tscn")
+var first_tree_resource = load("res://scenes/trees/Tree1.tscn")
+var second_tree_resource = load("res://scenes/trees/Tree2.tscn")
+var third_tree_resource = load("res://scenes/trees/Tree3.tscn")
+var fourth_tree_resource = load("res://scenes/trees/Tree4.tscn")
+#var fifth_tree_resource = load("res://scenes/trees/Tree5.tscn")
 
 var respawn_position
 
