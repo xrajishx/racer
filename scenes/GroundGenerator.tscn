@@ -1,19 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://scripts/GroundGenerator.gd" type="Script" id=1]
-
-
-[sub_resource type="SpatialMaterial" id=1]
-flags_vertex_lighting = true
-albedo_color = Color( 0.192157, 0.490196, 0.192157, 1 )
-metallic_specular = 0.0
 
 [node name="GroundGenerator" type="Spatial"]
 script = ExtResource( 1 )
 map_length = 3
-
-[node name="Ground" type="MeshInstance" parent="."]
-material_override = SubResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 50, 0 )
