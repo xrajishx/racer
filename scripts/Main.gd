@@ -31,9 +31,6 @@ func _ready():
 	add_child(game_manager.current_level_outline_mesh_resource)
 	_spawn_car()
 	checkpoint_positions = game_manager.current_level_checkpoint_positions
-	
-	print(checkpoint_positions)
-
 	next_checkpoint_position = checkpoint_positions[0]
 	_spawn_checkpoint_markers()
 	
