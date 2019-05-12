@@ -31,6 +31,8 @@ func _ready():
 	add_child(game_manager.current_level_outline_mesh_resource)
 	_spawn_car()
 	checkpoint_positions = game_manager.current_level_checkpoint_positions
+	
+	print(checkpoint_positions)
 
 	next_checkpoint_position = checkpoint_positions[0]
 	_spawn_checkpoint_markers()
@@ -45,13 +47,12 @@ func _ready():
 	waypoint_marker_pos_max = Vector2(viewport_size.x - waypoint_marker_size.x, viewport_size.y - viewport_size.y / 2)
 
 func _spawn_car():
-	var spawn_distance_from_origin = (helper.current_map_length / 2) * helper.current_quad_size
+	var spawn_distance_from_origin = (current_level_info.map_length / 2) * current_level_info.quad_size
 	var height = helper.get_height_at_position(spawn_distance_from_origin, spawn_distance_from_origin)
 	respawn_position = Vector3(spawn_distance_from_origin, height + 1, spawn_distance_from_origin)
 	$RaceCar.global_transform.origin = respawn_position
 
 func _spawn_checkpoint_markers():
-	print(checkpoint_marker_resource)
 	for i in checkpoint_positions.size():
 		var checkpoint_marker = checkpoint_marker_resource.instance()
 		checkpoints.push_back(checkpoint_marker)

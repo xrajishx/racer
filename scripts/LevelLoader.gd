@@ -9,8 +9,6 @@ var outline_material = load("res://assets/outline.material")
 
 var percent_complete = 0.0
 
-var noise_image
-
 var vertices = PoolVector3Array()
 var vertices_dictionary = {}
 
@@ -19,20 +17,19 @@ var indeces = []
 var current_level_info = level_info.levels[0]
 
 func _ready():
-	game_manager.init()
-	helper.current_map_length = current_level_info.map_length
-	helper.current_quad_size = current_level_info.quad_size
-	helper.current_height_influence = current_level_info.height_influence
+	game_manager.reset()
+	game_manager.current_level_info = current_level_info
+	game_manager.current_rng = RandomNumberGenerator.new()
+	game_manager.current_rng.set_seed(current_level_info.seed)
 
-	$LoadingScreen/Label2.text = '0%'
+	$LoadingScreen/Label2.text = '0'
 	if(thread.is_active()):
 		return
 
-	var res = thread.start(self, "_generate_level")
-	print(res)
+	thread.start(self, "_generate_level")
 
 func _generate_level(_data):
-	noise_image = helper.generate_noise_image(current_level_info.map_length)
+	helper.generate_noise_image(current_level_info.map_length)
 	
 	var ground_mesh = _generate_ground_mesh()
 	_create_ground_mesh_instances(ground_mesh)
@@ -84,6 +81,7 @@ func _create_ground_mesh_instances(mesh_data):
 	game_manager.current_level_outline_mesh_resource = outline_mesh_instance
 
 func _generate_mesh_data():
+	var noise_image = game_manager.current_level_noise_image
 	for i in range(0, current_level_info.map_length):
 		for j in range(0, current_level_info.map_length):
 			var point_one = Vector3(
@@ -133,13 +131,13 @@ func _generate_checkpoint_positions(number_of_checkpoints):
 	var checkpoint_positions = []
 	var padding = 20
 	for _i in range(0, number_of_checkpoints):
-		var randomX = (helper.rng.randi() % ((current_level_info.map_length) - (padding * 2))) + padding
-		var randomZ = (helper.rng.randi() % ((current_level_info.map_length) - (padding * 2))) + padding
-		var randomY = noise_image.get_pixel(randomX, randomZ).r * current_level_info.height_influence
+		var randomX = (game_manager.current_rng.randi() % ((current_level_info.map_length) - (padding * 2))) + padding
+		var randomZ = (game_manager.current_rng.randi() % ((current_level_info.map_length) - (padding * 2))) + padding
+		var randomY = game_manager.current_level_noise_image.get_pixel(randomX, randomZ).r * current_level_info.height_influence
 
 		var checkpoint_position = Vector3(randomX * current_level_info.quad_size, randomY, randomZ * current_level_info.quad_size)
 		checkpoint_positions.push_back(checkpoint_position)
-	
+
 	game_manager.current_level_checkpoint_positions = checkpoint_positions
 
 func _generate_tree_positions(tree_counts):
@@ -147,11 +145,11 @@ func _generate_tree_positions(tree_counts):
 		var tree_positions = []
 		var padding = 20
 		for _i in range(0, tree_count):
-			var randomX = (helper.rng.randi() % ((current_level_info.map_length) - (padding * 2))) + padding
-			var randomZ = (helper.rng.randi() % ((current_level_info.map_length) - (padding * 2))) + padding
-			var randomY = noise_image.get_pixel(randomX, randomZ).r * current_level_info.height_influence
+			var randomX = (game_manager.current_rng.randi() % ((current_level_info.map_length) - (padding * 2))) + padding
+			var randomZ = (game_manager.current_rng.randi() % ((current_level_info.map_length) - (padding * 2))) + padding
+			var randomY = game_manager.current_level_noise_image.get_pixel(randomX, randomZ).r * current_level_info.height_influence
 	
 			var tree_position = Vector3(randomX * current_level_info.quad_size, randomY, randomZ * current_level_info.quad_size)
 			tree_positions.push_back(tree_position)
-		
+
 		game_manager.current_level_tree_positions.push_back(tree_positions)
