@@ -16,12 +16,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Racer"
-run/main_scene="res://scenes/Loading.tscn"
+run/main_scene="res://scenes/Menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-global="*res://helper.gd"
+helper="*res://helper.gd"
+game_manager="*res://game_manager.gd"
+level_info="*res://level_info.gd"
 
 [display]
 
@@ -68,4 +70,8 @@ car_respawn={
 
 [rendering]
 
+quality/filters/anisotropic_filter_level=16
+quality/shadows/filter_mode=2
+quality/subsurface_scattering/quality=2
+quality/filters/msaa=4
 environment/default_environment="res://default_env.tres"

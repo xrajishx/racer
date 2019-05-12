@@ -39,32 +39,6 @@ func generate_noise_image(size):
 	
 	return current_noise_image
 
-func generate_checkpoint_positions(number_of_checkpoints):
-	var checkpoint_positions = []
-	var padding = 20
-	for _i in range(0, number_of_checkpoints):
-		var randomX = (rng.randi() % ((current_map_length) - (padding * 2))) + padding
-		var randomZ = (rng.randi() % ((current_map_length) - (padding * 2))) + padding
-		var randomY = current_noise_image.get_pixel(randomX, randomZ).r * current_height_influence
-
-		var checkpoint_position = Vector3(randomX * current_quad_size, randomY, randomZ * current_quad_size)
-		checkpoint_positions.push_back(checkpoint_position)
-	
-	return checkpoint_positions
-
-func generate_tree_positions(number_of_trees):
-	var tree_positions = []
-	var padding = 20
-	for _i in range(0, number_of_trees):
-		var randomX = (rng.randi() % ((current_map_length) - (padding * 2))) + padding
-		var randomZ = (rng.randi() % ((current_map_length) - (padding * 2))) + padding
-		var randomY = current_noise_image.get_pixel(randomX, randomZ).r * current_height_influence
-
-		var tree_position = Vector3(randomX * current_quad_size, randomY, randomZ * current_quad_size)
-		tree_positions.push_back(tree_position)
-	
-	return tree_positions
-
 func get_height_at_position(x, y):
 	return current_noise_image.get_pixel(x / current_quad_size, y / current_quad_size).r * current_height_influence
 

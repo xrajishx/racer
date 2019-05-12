@@ -16,9 +16,9 @@ var vertices_dictionary = {}
 var indeces = []
 
 func _ready():
-	global.current_map_length = map_length
-	global.current_quad_size = quad_size
-	global.current_height_influence = height_influence
+#	global.current_map_length = map_length
+#	global.current_quad_size = quad_size
+#	global.current_height_influence = height_influence
 
 	noise_image = global.generate_noise_image(map_length)
 
@@ -48,8 +48,11 @@ func _add_mesh_instance_child(mesh_data):
 	
 	outline_mesh_instance.set_mesh(mesh_data.create_outline(0.1))
 	outline_mesh_instance.set_surface_material(0, outline_material)
-	add_child(mesh_instance)
-	add_child(outline_mesh_instance)
+#	add_child(mesh_instance)
+#	add_child(outline_mesh_instance)
+
+	game_manager.current_level_mesh_resource = mesh_instance
+	game_manager.current_level_outline_mesh_resource = outline_mesh_instance
 
 func generate_mesh_data():
 	for i in range(0, map_length):

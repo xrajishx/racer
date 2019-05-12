@@ -2,30 +2,19 @@ extends Node
 
 var checkpoint_marker_resource = load("res://scenes/CheckpointMarker.tscn")
 
-var first_tree_resource = load("res://scenes/trees/Tree1.tscn")
-var second_tree_resource = load("res://scenes/trees/Tree2.tscn")
-var third_tree_resource = load("res://scenes/trees/Tree3.tscn")
-var fourth_tree_resource = load("res://scenes/trees/Tree4.tscn")
-#var fifth_tree_resource = load("res://scenes/trees/Tree5.tscn")
+var tree_resources = [
+	load("res://scenes/trees/Tree1.tscn"),
+	load("res://scenes/trees/Tree2.tscn"),
+	load("res://scenes/trees/Tree3.tscn"),
+	load("res://scenes/trees/Tree4.tscn"),
+	load("res://scenes/trees/Tree5.tscn")
+]
 
 var respawn_position
 
-var checkpoints_count = 10
 var checkpoints_completed = 0
 var checkpoints = []
 var checkpoint_positions
-
-var first_trees_count = 100
-var first_tree_positions
-
-var second_trees_count = 100
-var second_tree_positions
-
-var third_trees_count = 100
-var third_tree_positions
-
-var fourth_trees_count = 100
-var fourth_tree_positions
 
 var next_checkpoint_position
 
@@ -34,23 +23,19 @@ var waypoint_marker_size
 var waypoint_marker_pos_min
 var waypoint_marker_pos_max
 
-func _ready():
-	_spawn_car()
-	checkpoint_positions = global.generate_checkpoint_positions(checkpoints_count)
+var current_level_info
 
-	# Generate tree positions
-	first_tree_positions = global.generate_tree_positions(first_trees_count)
-	second_tree_positions = global.generate_tree_positions(second_trees_count)
-	third_tree_positions = global.generate_tree_positions(third_trees_count)
-	fourth_tree_positions = global.generate_tree_positions(fourth_trees_count)
+func _ready():
+	current_level_info = level_info.levels[0]
+	add_child(game_manager.current_level_mesh_resource)
+	add_child(game_manager.current_level_outline_mesh_resource)
+	_spawn_car()
+	checkpoint_positions = game_manager.current_level_checkpoint_positions
 
 	next_checkpoint_position = checkpoint_positions[0]
 	_spawn_checkpoint_markers()
-
-	_spawn_trees(first_tree_positions, first_tree_resource)
-	_spawn_trees(second_tree_positions, second_tree_resource)
-	_spawn_trees(third_tree_positions, third_tree_resource)
-	_spawn_trees(fourth_tree_positions, fourth_tree_resource)
+	
+	_spawn_treess()
 
 	update_hud_text()
 	waypoint_marker_size = $HUD/Waypoint.get_rect().size
@@ -60,8 +45,8 @@ func _ready():
 	waypoint_marker_pos_max = Vector2(viewport_size.x - waypoint_marker_size.x, viewport_size.y - viewport_size.y / 2)
 
 func _spawn_car():
-	var spawn_distance_from_origin = (global.current_map_length / 2) * global.current_quad_size
-	var height = global.get_height_at_position(spawn_distance_from_origin, spawn_distance_from_origin)
+	var spawn_distance_from_origin = (helper.current_map_length / 2) * helper.current_quad_size
+	var height = helper.get_height_at_position(spawn_distance_from_origin, spawn_distance_from_origin)
 	respawn_position = Vector3(spawn_distance_from_origin, height + 1, spawn_distance_from_origin)
 	$RaceCar.global_transform.origin = respawn_position
 
@@ -80,10 +65,19 @@ func _spawn_trees(positions, resource):
 		add_child(tree)
 		tree.global_transform.origin = positions[i]
 
+func _spawn_treess():
+	for i in game_manager.current_level_tree_positions.size():
+		var tree_resource = tree_resources[i]
+		var positions = game_manager.current_level_tree_positions[i]
+		for position in positions:
+			var tree_instance = tree_resource.instance()
+			add_child(tree_instance)
+			tree_instance.global_transform.origin = position
+
 func checkpoint_reached():
 	respawn_position = checkpoint_positions[checkpoints_completed]
 	checkpoints_completed += 1
-	if checkpoints_completed >= checkpoints_count:
+	if checkpoints_completed >= current_level_info.checkpoints_count:
 		$GameOver.visible = true
 		$HUD/Waypoint.visible = false
 	else:
@@ -95,10 +89,10 @@ func _activate_next_checkpoint():
 	checkpoints[checkpoints_completed].activate()
 
 func update_hud_text():
-	$HUD/Checkpoints.text = "Checkpoints : " + str(checkpoints_completed) + "/" + str(checkpoints_count)
+	$HUD/Checkpoints.text = "Checkpoints : " + str(checkpoints_completed) + "/" + str(current_level_info.checkpoints_count)
 
 func _on_PlayAgain_pressed():
-	global.load_scene("res://scenes/Loading.tscn")
+	helper.load_scene("res://scenes/Menu.tscn")
 
 func _process(_delta):
 	var waypoint_marker_position = $Camera.unproject_position(Vector3(
