@@ -2,7 +2,6 @@
 
 [ext_resource path="res://scripts/LevelLoader.gd" type="Script" id=1]
 
-
 [node name="LevelLoader" type="Node"]
 script = ExtResource( 1 )
 
@@ -11,17 +10,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Label" type="Label" parent="LoadingScreen"]
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+margin_top = -7.0
+margin_bottom = 7.0
 text = "Loading"
 align = 1
 valign = 1
-uppercase = true
 
 [node name="Label2" type="Label" parent="LoadingScreen"]
-margin_left = 284.0
-margin_top = 316.0
-margin_right = 506.0
-margin_bottom = 517.0
-text = "52
-"
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 3.34033
+margin_top = 29.744
+margin_right = 3.34033
+margin_bottom = 43.744
+align = 1
+valign = 1

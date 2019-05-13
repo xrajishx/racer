@@ -4,7 +4,10 @@ var thread = Thread.new()
 
 export var smooth_shading = false
 
-var ground_material = load("res://assets/green_ground.material")
+var green_ground_material = load("res://assets/green_ground.material")
+var desert_ground_material = load("res://assets/desert_ground.material")
+var snow_ground_material = load("res://assets/snow_ground.material")
+var ground_material
 var outline_material = load("res://assets/outline.material")
 
 var percent_complete = 0.0
@@ -14,13 +17,14 @@ var vertices_dictionary = {}
 
 var indeces = []
 
-var current_level_info = level_info.levels[0]
+var current_level_info = level_info.levels[game_manager.current_level - 1]
 
 func _ready():
-	game_manager.reset()
 	game_manager.current_level_info = current_level_info
 	game_manager.current_rng = RandomNumberGenerator.new()
 	game_manager.current_rng.set_seed(current_level_info.seed)
+	
+	ground_material = load("res://assets/" + current_level_info.ground + "_ground.material")
 
 	$LoadingScreen/Label2.text = '0'
 	if(thread.is_active()):
@@ -128,6 +132,7 @@ func _add_or_get_vertex_index(vertex):
 		return vertices.size() - 1
 
 func _generate_checkpoint_positions(number_of_checkpoints):
+	print(number_of_checkpoints)
 	var checkpoint_positions = []
 	var padding = 20
 	for _i in range(0, number_of_checkpoints):

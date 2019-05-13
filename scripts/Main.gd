@@ -26,7 +26,7 @@ var waypoint_marker_pos_max
 var current_level_info
 
 func _ready():
-	current_level_info = level_info.levels[0]
+	current_level_info = game_manager.current_level_info
 	add_child(game_manager.current_level_mesh_resource)
 	add_child(game_manager.current_level_outline_mesh_resource)
 	_spawn_car()
