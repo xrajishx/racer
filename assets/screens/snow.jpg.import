@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/waypoint.png-f393778b8721f28a743042609291381a.stex"
+path="res://.import/snow.jpg-126d1d92d7192669a57d7da5bb059573.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/waypoint.png"
-dest_files=[ "res://.import/waypoint.png-f393778b8721f28a743042609291381a.stex" ]
+source_file="res://assets/screens/snow.jpg"
+dest_files=[ "res://.import/snow.jpg-126d1d92d7192669a57d7da5bb059573.stex" ]
 
 [params]
 

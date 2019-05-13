@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/car_sound.wav-0cb313185b4bcb74394d17ef28130640.sample"
+path="res://.import/car_sound.wav-44329a5ea1f488fe0ab8fe1d04271141.sample"
 
 [deps]
 
-source_file="res://assets/car_sound.wav"
-dest_files=[ "res://.import/car_sound.wav-0cb313185b4bcb74394d17ef28130640.sample" ]
+source_file="res://assets/audio/car_sound.wav"
+dest_files=[ "res://.import/car_sound.wav-44329a5ea1f488fe0ab8fe1d04271141.sample" ]
 
 [params]
 

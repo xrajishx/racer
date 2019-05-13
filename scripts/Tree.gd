@@ -1,6 +1,6 @@
 extends Spatial
 
-var material = load("res://assets/outline.material")
+var material = load("res://assets/materials/outline.material")
 
 func _enter_tree():
 	var outline_mesh = $tree.mesh.create_outline(0.05)

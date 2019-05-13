@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/RaceCarTexture.png-1dac975d83bae62091a75263b7cd9ceb.s3tc.stex"
-path.etc2="res://.import/RaceCarTexture.png-1dac975d83bae62091a75263b7cd9ceb.etc2.stex"
+path.s3tc="res://.import/RaceCarTexture.png-fed5bd7ccac5824718e8751b657b315b.s3tc.stex"
+path.etc2="res://.import/RaceCarTexture.png-fed5bd7ccac5824718e8751b657b315b.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/RaceCarTexture.png"
-dest_files=[ "res://.import/RaceCarTexture.png-1dac975d83bae62091a75263b7cd9ceb.s3tc.stex", "res://.import/RaceCarTexture.png-1dac975d83bae62091a75263b7cd9ceb.etc2.stex" ]
+source_file="res://assets/textures/RaceCarTexture.png"
+dest_files=[ "res://.import/RaceCarTexture.png-fed5bd7ccac5824718e8751b657b315b.s3tc.stex", "res://.import/RaceCarTexture.png-fed5bd7ccac5824718e8751b657b315b.etc2.stex" ]
 
 [params]
 

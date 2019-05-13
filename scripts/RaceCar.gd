@@ -8,7 +8,7 @@ export var MAX_STEER = 0.3
 
 export var STEER_SPEED = 3.0
 
-var material = load("res://assets/outline.material")
+var material = load("res://assets/materials/outline.material")
 
 func _enter_tree():	
 	var outline_mesh = $CarBodyMesh.mesh.create_outline(0.05)

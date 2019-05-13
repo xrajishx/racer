@@ -1,31 +1,181 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/Menu.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/kenvector_future.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/screens/desert.jpg" type="Texture" id=3]
+[ext_resource path="res://assets/screens/snow.jpg" type="Texture" id=4]
+[ext_resource path="res://assets/screens/forest.jpg" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=2]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+font_data = ExtResource( 2 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 
-[node name="Button" type="Button" parent="."]
-anchor_right = 1.0
-margin_bottom = 20.0
-text = "Play level 1"
-
-[node name="Button2" type="Button" parent="."]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -10.0
-margin_bottom = 10.0
-text = "Play level 2"
-
-[node name="Button3" type="Button" parent="."]
-anchor_top = 1.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -20.0
-text = "Play level 3"
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed" binds= [ 1 ]]
-[connection signal="pressed" from="Button2" to="." method="_on_Button_pressed" binds= [ 2 ]]
-[connection signal="pressed" from="Button3" to="." method="_on_Button_pressed" binds= [ 3 ]]
+
+[node name="TitleContainer" type="MarginContainer" parent="VBoxContainer"]
+editor/display_folded = true
+margin_right = 1920.0
+margin_bottom = 190.0
+custom_constants/margin_top = 50
+custom_constants/margin_bottom = 50
+
+[node name="Title" type="Label" parent="VBoxContainer/TitleContainer"]
+margin_top = 50.0
+margin_right = 1920.0
+margin_bottom = 140.0
+custom_fonts/font = SubResource( 2 )
+text = "Select level"
+align = 1
+valign = 1
+
+[node name="LevelSelectorContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 194.0
+margin_right = 1920.0
+margin_bottom = 898.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/LevelSelectorContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 1870.0
+margin_bottom = 654.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer1" type="MarginContainer" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer"]
+margin_right = 604.0
+margin_bottom = 604.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 25
+custom_constants/margin_top = 100
+custom_constants/margin_bottom = 100
+
+[node name="VBoxContainer1" type="VBoxContainer" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer1"]
+margin_top = 100.0
+margin_right = 579.0
+margin_bottom = 504.0
+
+[node name="Level1Button" type="TextureButton" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer1/VBoxContainer1"]
+margin_right = 579.0
+margin_bottom = 310.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 3 )
+expand = true
+
+[node name="Level1Label" type="Label" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer1/VBoxContainer1"]
+margin_top = 314.0
+margin_right = 579.0
+margin_bottom = 404.0
+custom_fonts/font = SubResource( 2 )
+text = "Level 1"
+align = 1
+valign = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer"]
+margin_left = 608.0
+margin_right = 1212.0
+margin_bottom = 604.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 25
+custom_constants/margin_top = 100
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 100
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer2"]
+margin_left = 25.0
+margin_top = 100.0
+margin_right = 579.0
+margin_bottom = 504.0
+
+[node name="Level2Button" type="TextureButton" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
+margin_right = 554.0
+margin_bottom = 310.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="Level2Label" type="Label" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
+margin_top = 314.0
+margin_right = 554.0
+margin_bottom = 404.0
+custom_fonts/font = SubResource( 2 )
+text = "Level 2"
+align = 1
+valign = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer"]
+margin_left = 1216.0
+margin_right = 1820.0
+margin_bottom = 604.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 100
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 100
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer3"]
+margin_left = 25.0
+margin_top = 100.0
+margin_right = 604.0
+margin_bottom = 504.0
+
+[node name="Level3Button" type="TextureButton" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_right = 579.0
+margin_bottom = 310.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 5 )
+expand = true
+
+[node name="Level3Label" type="Label" parent="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 314.0
+margin_right = 579.0
+margin_bottom = 404.0
+custom_fonts/font = SubResource( 2 )
+text = "Level 3"
+align = 1
+valign = 1
+
+[node name="GoBackContainer" type="MarginContainer" parent="VBoxContainer"]
+editor/display_folded = true
+margin_top = 902.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+custom_constants/margin_top = 50
+custom_constants/margin_bottom = 50
+
+[node name="Back" type="Label" parent="VBoxContainer/GoBackContainer"]
+margin_top = 82.0
+margin_right = 1920.0
+margin_bottom = 96.0
+
+[node name="Button" type="Button" parent="VBoxContainer/GoBackContainer"]
+margin_top = 50.0
+margin_right = 1920.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 3 )
+text = "Main menu"
+flat = true
+[connection signal="pressed" from="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer1/VBoxContainer1/Level1Button" to="." method="_on_level_selected" binds= [ 1 ]]
+[connection signal="pressed" from="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer2/VBoxContainer2/Level2Button" to="." method="_on_level_selected" binds= [ 2 ]]
+[connection signal="pressed" from="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer3/VBoxContainer3/Level3Button" to="." method="_on_level_selected" binds= [ 3 ]]

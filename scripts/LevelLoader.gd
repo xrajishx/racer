@@ -4,11 +4,11 @@ var thread = Thread.new()
 
 export var smooth_shading = false
 
-var green_ground_material = load("res://assets/green_ground.material")
-var desert_ground_material = load("res://assets/desert_ground.material")
-var snow_ground_material = load("res://assets/snow_ground.material")
+var green_ground_material = load("res://assets/materials/green_ground.material")
+var desert_ground_material = load("res://assets/materials/desert_ground.material")
+var snow_ground_material = load("res://assets/materials/snow_ground.material")
 var ground_material
-var outline_material = load("res://assets/outline.material")
+var outline_material = load("res://assets/materials/outline.material")
 
 var percent_complete = 0.0
 
@@ -24,7 +24,7 @@ func _ready():
 	game_manager.current_rng = RandomNumberGenerator.new()
 	game_manager.current_rng.set_seed(current_level_info.seed)
 	
-	ground_material = load("res://assets/" + current_level_info.ground + "_ground.material")
+	ground_material = load("res://assets/materials/" + current_level_info.ground + "_ground.material")
 
 	$LoadingScreen/Label2.text = '0'
 	if(thread.is_active()):

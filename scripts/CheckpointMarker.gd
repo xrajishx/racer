@@ -4,8 +4,8 @@ signal checkpoint_reached
 
 var is_active = false
 var is_completed = false
-var completed_material = load("res://assets/CheckpointMarkerCompleted.material")
-var active_material = load("res://assets/CheckpointMarkerActive.material")
+var completed_material = load("res://assets/materials/CheckpointMarkerCompleted.material")
+var active_material = load("res://assets/materials/CheckpointMarkerActive.material")
 
 func _ready():
 	if get_parent():
