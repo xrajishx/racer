@@ -4,9 +4,6 @@ var thread = Thread.new()
 
 export var smooth_shading = false
 
-var green_ground_material = load("res://assets/materials/green_ground.material")
-var desert_ground_material = load("res://assets/materials/desert_ground.material")
-var snow_ground_material = load("res://assets/materials/snow_ground.material")
 var ground_material
 var outline_material = load("res://assets/materials/outline.material")
 
@@ -26,7 +23,6 @@ func _ready():
 	
 	ground_material = load("res://assets/materials/" + current_level_info.ground + "_ground.material")
 
-	$LoadingScreen/Label2.text = '0'
 	if(thread.is_active()):
 		return
 
@@ -49,7 +45,7 @@ func _generate_level_completed():
 func _update_percent_completed(value):
 	if(floor(value) > percent_complete):
 		percent_complete = floor(value)
-		$LoadingScreen/Label2.text = str(percent_complete)
+		$LoadingScreen/LoadingProgress.text = "\n" + str(percent_complete)
 
 func _generate_ground_mesh():
 	var result_mesh = Mesh.new();

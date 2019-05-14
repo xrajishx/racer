@@ -6,11 +6,11 @@
 [ext_resource path="res://assets/screens/snow.jpg" type="Texture" id=4]
 [ext_resource path="res://assets/screens/forest.jpg" type="Texture" id=5]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 80
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 2 )
 
@@ -34,7 +34,7 @@ custom_constants/margin_bottom = 50
 margin_top = 50.0
 margin_right = 1920.0
 margin_bottom = 140.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Select level"
 align = 1
 valign = 1
@@ -84,7 +84,7 @@ expand = true
 margin_top = 314.0
 margin_right = 579.0
 margin_bottom = 404.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Level 1"
 align = 1
 valign = 1
@@ -118,7 +118,7 @@ expand = true
 margin_top = 314.0
 margin_right = 554.0
 margin_bottom = 404.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Level 2"
 align = 1
 valign = 1
@@ -151,7 +151,7 @@ expand = true
 margin_top = 314.0
 margin_right = 579.0
 margin_bottom = 404.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Level 3"
 align = 1
 valign = 1
@@ -173,7 +173,7 @@ margin_bottom = 96.0
 margin_top = 50.0
 margin_right = 1920.0
 margin_bottom = 128.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Main menu"
 flat = true
 [connection signal="pressed" from="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer1/VBoxContainer1/Level1Button" to="." method="_on_level_selected" binds= [ 1 ]]

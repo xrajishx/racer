@@ -19,7 +19,12 @@ var levels = [
 			'octaves': 2,
 			'period': 20.0,
 			'persistence': 0.8
-		}
+		},
+		'times': [
+			35.0,
+			40.0,
+			45.0
+		]
 	},
 	{
 		'seed': 2,
@@ -39,7 +44,12 @@ var levels = [
 			'octaves': 2,
 			'period': 20.0,
 			'persistence': 0.8
-		}
+		},
+		'times': [
+			60.0,
+			65.0,
+			70.0
+		]
 	},
 	{
 		'seed': 3,
@@ -59,6 +69,11 @@ var levels = [
 			'octaves': 2,
 			'period': 20.0,
 			'persistence': 0.8
-		}
+		},
+		'times': [
+			140.0,
+			160.0,
+			180.0
+		]
 	}
 ]

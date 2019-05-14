@@ -25,6 +25,11 @@ var waypoint_marker_pos_max
 
 var current_level_info
 
+var elapsed_time = 0.0
+var elapsed_time_format = "%.1f"
+
+var is_game_over = false
+
 func _ready():
 	current_level_info = game_manager.current_level_info
 	add_child(game_manager.current_level_mesh_resource)
@@ -36,7 +41,8 @@ func _ready():
 	
 	_spawn_treess()
 
-	update_hud_text()
+	_update_hud_text()
+	_update_timeinfo_text()
 	waypoint_marker_size = $HUD/Waypoint.get_rect().size
 	viewport_size = get_viewport().size
 
@@ -76,21 +82,30 @@ func checkpoint_reached():
 	respawn_position = checkpoint_positions[checkpoints_completed]
 	checkpoints_completed += 1
 	if checkpoints_completed >= current_level_info.checkpoints_count:
+		if(elapsed_time <= current_level_info.times[0]):
+			$GameOver/Message.text = "You won a gold medal!"
+		elif(elapsed_time <= current_level_info.times[1]):
+			$GameOver/Message.text = "You got a silver medal!"
+		elif(elapsed_time <= current_level_info.times[2]):
+			$GameOver/Message.text = "You got a bronze medal!"
+		else:
+			$GameOver/Message.text = "You got no medals. Try again!"
 		$GameOver.visible = true
-		$HUD/Waypoint.visible = false
+		$HUD.visible = false
+		is_game_over = true
 	else:
 		next_checkpoint_position = checkpoint_positions[checkpoints_completed]
 		_activate_next_checkpoint()
-	update_hud_text()
+	_update_hud_text()
 
 func _activate_next_checkpoint():
 	checkpoints[checkpoints_completed].activate()
 
-func update_hud_text():
-	$HUD/Checkpoints.text = "Checkpoints : " + str(checkpoints_completed) + "/" + str(current_level_info.checkpoints_count)
+func _update_hud_text():
+	$HUD/CheckpointContainer/Checkpoints.text = "Checkpoints : " + str(checkpoints_completed) + "/" + str(current_level_info.checkpoints_count)
 
-func _on_PlayAgain_pressed():
-	helper.load_scene("res://scenes/Menu.tscn")
+func _update_timeinfo_text():
+	$TimeInfo/Label.text = "Gold: " + str(current_level_info.times[0]) + "\nSilver: " + str(current_level_info.times[1]) + "\nBronze: " + str(current_level_info.times[2])
 
 func _process(_delta):
 	var waypoint_marker_position = $Camera.unproject_position(Vector3(
@@ -109,8 +124,23 @@ func _process(_delta):
 
 	$HUD/Waypoint.position = waypoint_marker_position
 	$HUD/Waypoint/Label.text = str((floor($RaceCar.translation.distance_to(next_checkpoint_position)) - 5) / 10)
-	$HUD/Speed.text = str((floor($RaceCar.linear_velocity.length())))
+	$HUD/SpeedContainer/Speed.text = str((floor($RaceCar.linear_velocity.length()))) + " mph"
 
 func _on_RaceCar_respawn():
 	$RaceCar.linear_velocity = Vector3.ZERO
 	$RaceCar.global_transform.origin = respawn_position
+
+func _physics_process(delta):
+	if !is_game_over:
+		elapsed_time += delta
+	$HUD/ElapsedTimeContainer/ElapsedTime.text = elapsed_time_format % elapsed_time
+
+func _on_GameInfoTimer_timeout():
+	$TimeInfo.visible = false
+
+func _on_LevelSelect_pressed():
+	helper.load_scene("res://scenes/Menu.tscn")
+
+func _on_Quit_pressed():
+	print('quit')
+	get_tree().quit()
