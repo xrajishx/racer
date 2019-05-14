@@ -6,35 +6,35 @@
 [ext_resource path="res://assets/fonts/kenvector_future.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/textures/waypoint.png" type="Texture" id=5]
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=1]
 size = 80
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=2]
 size = 64
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 size = 64
 outline_size = 3
 outline_color = Color( 0.172549, 0.4, 0.87451, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=4]
 size = 48
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 size = 100
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=6]
 size = 64
 font_data = ExtResource( 4 )
 
@@ -64,7 +64,7 @@ anchor_bottom = 1.0
 [node name="Message" type="Label" parent="GameOver"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.298039, 0.976471, 0.372549, 1 )
 text = "You win"
 align = 1
@@ -85,7 +85,7 @@ margin_bottom = 160.0
 [node name="LevelSelect" type="Button" parent="GameOver/MarginContainer/VBoxContainer"]
 margin_right = 1920.0
 margin_bottom = 78.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Go to level select"
 flat = true
@@ -94,12 +94,13 @@ flat = true
 margin_top = 82.0
 margin_right = 1920.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "quit"
 flat = true
 
 [node name="HUD" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -134,7 +135,7 @@ custom_constants/margin_bottom = 50
 [node name="Speed" type="Label" parent="HUD/SpeedContainer"]
 margin_right = 1840.0
 margin_bottom = 72.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "0 mph"
 align = 2
@@ -153,7 +154,7 @@ custom_constants/margin_bottom = 50
 margin_left = 80.0
 margin_right = 1920.0
 margin_bottom = 54.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Checkpoints: "
 valign = 1
@@ -166,7 +167,7 @@ margin_bottom = 14.0
 [node name="ElapsedTime" type="Label" parent="HUD/ElapsedTimeContainer"]
 margin_right = 1920.0
 margin_bottom = 113.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 0.521569 )
 text = "1"
 align = 1
@@ -181,7 +182,7 @@ mouse_filter = 2
 [node name="Label" type="Label" parent="TimeInfo"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 0.560784 )
 text = "Gold
 Silver
@@ -193,7 +194,48 @@ valign = 1
 wait_time = 3.0
 one_shot = true
 autostart = true
+
+[node name="PauseMenu" type="Control" parent="."]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
+margin_top = 419.0
+margin_right = 1920.0
+margin_bottom = 497.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Resume"
+flat = true
+
+[node name="LevelSelect" type="Button" parent="PauseMenu/VBoxContainer"]
+margin_top = 501.0
+margin_right = 1920.0
+margin_bottom = 579.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Go to level select"
+flat = true
+
+[node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
+margin_top = 583.0
+margin_right = 1920.0
+margin_bottom = 661.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "quit"
+flat = true
 [connection signal="respawn" from="RaceCar" to="." method="_on_RaceCar_respawn"]
 [connection signal="pressed" from="GameOver/MarginContainer/VBoxContainer/LevelSelect" to="." method="_on_LevelSelect_pressed"]
 [connection signal="pressed" from="GameOver/MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="timeout" from="GameInfoTimer" to="." method="_on_GameInfoTimer_timeout"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/LevelSelect" to="." method="_on_LevelSelect_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

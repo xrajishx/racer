@@ -128,7 +128,6 @@ func _add_or_get_vertex_index(vertex):
 		return vertices.size() - 1
 
 func _generate_checkpoint_positions(number_of_checkpoints):
-	print(number_of_checkpoints)
 	var checkpoint_positions = []
 	var padding = 20
 	for _i in range(0, number_of_checkpoints):

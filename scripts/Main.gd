@@ -49,6 +49,11 @@ func _ready():
 	waypoint_marker_pos_min = Vector2(0 + waypoint_marker_size.x, 0 + waypoint_marker_size.y)
 	waypoint_marker_pos_max = Vector2(viewport_size.x - waypoint_marker_size.x, viewport_size.y - viewport_size.y / 2)
 
+func _input(event):
+	if event.is_action_pressed("pause_game"):
+		get_tree().paused = true
+		$PauseMenu.visible = true
+
 func _spawn_car():
 	var spawn_distance_from_origin = (current_level_info.map_length / 2) * current_level_info.quad_size
 	var height = helper.get_height_at_position(spawn_distance_from_origin, spawn_distance_from_origin)
@@ -139,8 +144,15 @@ func _on_GameInfoTimer_timeout():
 	$TimeInfo.visible = false
 
 func _on_LevelSelect_pressed():
+	_unpause_game()
 	helper.load_scene("res://scenes/Menu.tscn")
 
 func _on_Quit_pressed():
-	print('quit')
 	get_tree().quit()
+
+func _on_Resume_pressed():
+	_unpause_game()
+	$PauseMenu.visible = false
+
+func _unpause_game():
+	get_tree().paused = false
