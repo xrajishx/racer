@@ -40,6 +40,7 @@ align = 1
 valign = 1
 
 [node name="LevelSelectorContainer" type="MarginContainer" parent="VBoxContainer"]
+editor/display_folded = true
 margin_top = 194.0
 margin_right = 1920.0
 margin_bottom = 898.0
@@ -156,26 +157,21 @@ text = "Level 3"
 align = 1
 valign = 1
 
-[node name="GoBackContainer" type="MarginContainer" parent="VBoxContainer"]
-editor/display_folded = true
+[node name="QuitContainer" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 902.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 custom_constants/margin_top = 50
 custom_constants/margin_bottom = 50
 
-[node name="Back" type="Label" parent="VBoxContainer/GoBackContainer"]
-margin_top = 82.0
-margin_right = 1920.0
-margin_bottom = 96.0
-
-[node name="Button" type="Button" parent="VBoxContainer/GoBackContainer"]
+[node name="QuitButton" type="Button" parent="VBoxContainer/QuitContainer"]
 margin_top = 50.0
 margin_right = 1920.0
 margin_bottom = 128.0
 custom_fonts/font = SubResource( 2 )
-text = "Main menu"
+text = "Quit"
 flat = true
 [connection signal="pressed" from="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer1/VBoxContainer1/Level1Button" to="." method="_on_level_selected" binds= [ 1 ]]
 [connection signal="pressed" from="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer2/VBoxContainer2/Level2Button" to="." method="_on_level_selected" binds= [ 2 ]]
 [connection signal="pressed" from="VBoxContainer/LevelSelectorContainer/HBoxContainer/MarginContainer3/VBoxContainer3/Level3Button" to="." method="_on_level_selected" binds= [ 3 ]]
+[connection signal="pressed" from="VBoxContainer/QuitContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
