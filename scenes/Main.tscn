@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/RaceCar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts/kenvector_future.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/textures/waypoint.png" type="Texture" id=5]
+[ext_resource path="res://assets/audio/ente_evil.ogg" type="AudioStream" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -16,6 +17,10 @@ font_data = ExtResource( 4 )
 size = 64
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 14
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -35,7 +40,13 @@ size = 100
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=6]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=7]
 size = 64
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
 [node name="Main" type="Node"]
@@ -57,6 +68,7 @@ light_bake_mode = 0
 shadow_enabled = true
 
 [node name="GameOver" type="Control" parent="."]
+editor/display_folded = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -100,14 +112,12 @@ text = "quit"
 flat = true
 
 [node name="HUD" type="Control" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="Waypoint" type="Sprite" parent="HUD"]
 editor/display_folded = true
-scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="HUD/Waypoint"]
@@ -118,6 +128,7 @@ margin_left = -32.0
 margin_top = -47.5
 margin_right = -32.0
 margin_bottom = -16.5
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "1000"
 align = 1
@@ -160,13 +171,14 @@ text = "Checkpoints: "
 valign = 1
 
 [node name="ElapsedTimeContainer" type="MarginContainer" parent="HUD"]
-editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 14.0
+custom_constants/margin_top = 50
 
 [node name="ElapsedTime" type="Label" parent="HUD/ElapsedTimeContainer"]
+margin_top = 50.0
 margin_right = 1920.0
-margin_bottom = 113.0
+margin_bottom = 163.0
 custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 0.521569 )
 text = "1"
@@ -179,24 +191,26 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="TimeInfo"]
+[node name="MarginContainer" type="MarginContainer" parent="TimeInfo"]
 anchor_right = 1.0
-anchor_bottom = 1.0
+margin_bottom = 222.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+
+[node name="Label" type="Label" parent="TimeInfo/MarginContainer"]
+margin_top = 77.0
+margin_right = 1870.0
+margin_bottom = 245.0
 custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 0.560784 )
 text = "Gold
 Silver
 Bronze"
-align = 1
-valign = 1
-
-[node name="GameInfoTimer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-autostart = true
+align = 2
 
 [node name="PauseMenu" type="Control" parent="."]
 pause_mode = 2
+editor/display_folded = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -207,35 +221,54 @@ anchor_bottom = 1.0
 alignment = 1
 
 [node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
-margin_top = 419.0
+margin_top = 377.0
 margin_right = 1920.0
-margin_bottom = 497.0
+margin_bottom = 455.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Resume"
 flat = true
 
-[node name="LevelSelect" type="Button" parent="PauseMenu/VBoxContainer"]
-margin_top = 501.0
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu/VBoxContainer"]
+margin_top = 459.0
 margin_right = 1920.0
-margin_bottom = 579.0
+margin_bottom = 539.0
+
+[node name="MusicToggle" type="CheckButton" parent="PauseMenu/VBoxContainer/CenterContainer"]
+margin_left = 795.0
+margin_right = 1124.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 7 )
+pressed = true
+text = "music"
+align = 1
+
+[node name="LevelSelect" type="Button" parent="PauseMenu/VBoxContainer"]
+margin_top = 543.0
+margin_right = 1920.0
+margin_bottom = 621.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Go to level select"
 flat = true
 
 [node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
-margin_top = 583.0
+margin_top = 625.0
 margin_right = 1920.0
-margin_bottom = 661.0
+margin_bottom = 703.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "quit"
 flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -20.0
+autoplay = true
 [connection signal="respawn" from="RaceCar" to="." method="_on_RaceCar_respawn"]
 [connection signal="pressed" from="GameOver/MarginContainer/VBoxContainer/LevelSelect" to="." method="_on_LevelSelect_pressed"]
 [connection signal="pressed" from="GameOver/MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
-[connection signal="timeout" from="GameInfoTimer" to="." method="_on_GameInfoTimer_timeout"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/CenterContainer/MusicToggle" to="." method="_on_MusicToggle_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/LevelSelect" to="." method="_on_LevelSelect_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

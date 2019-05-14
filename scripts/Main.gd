@@ -110,7 +110,7 @@ func _update_hud_text():
 	$HUD/CheckpointContainer/Checkpoints.text = "Checkpoints : " + str(checkpoints_completed) + "/" + str(current_level_info.checkpoints_count)
 
 func _update_timeinfo_text():
-	$TimeInfo/Label.text = "Gold: " + str(current_level_info.times[0]) + "\nSilver: " + str(current_level_info.times[1]) + "\nBronze: " + str(current_level_info.times[2])
+	$TimeInfo/MarginContainer/Label.text = "Gold: " + str(current_level_info.times[0]) + "\nSilver: " + str(current_level_info.times[1]) + "\nBronze: " + str(current_level_info.times[2])
 
 func _process(_delta):
 	var waypoint_marker_position = $Camera.unproject_position(Vector3(
@@ -128,7 +128,7 @@ func _process(_delta):
 			waypoint_marker_position.x = waypoint_marker_pos_min.x
 
 	$HUD/Waypoint.position = waypoint_marker_position
-	$HUD/Waypoint/Label.text = str((floor($RaceCar.translation.distance_to(next_checkpoint_position)) - 5) / 10)
+	$HUD/Waypoint/Label.text = str((floor($RaceCar.translation.distance_to(next_checkpoint_position)) - 5))
 	$HUD/SpeedContainer/Speed.text = str((floor($RaceCar.linear_velocity.length()))) + " mph"
 
 func _on_RaceCar_respawn():
@@ -139,9 +139,6 @@ func _physics_process(delta):
 	if !is_game_over:
 		elapsed_time += delta
 	$HUD/ElapsedTimeContainer/ElapsedTime.text = elapsed_time_format % elapsed_time
-
-func _on_GameInfoTimer_timeout():
-	$TimeInfo.visible = false
 
 func _on_LevelSelect_pressed():
 	_unpause_game()
@@ -156,3 +153,10 @@ func _on_Resume_pressed():
 
 func _unpause_game():
 	get_tree().paused = false
+
+func _on_MusicToggle_pressed():
+	if $PauseMenu/VBoxContainer/CenterContainer/MusicToggle.pressed:
+		if !$AudioStreamPlayer.playing:
+			$AudioStreamPlayer.play()
+	else:
+		$AudioStreamPlayer.stop()
